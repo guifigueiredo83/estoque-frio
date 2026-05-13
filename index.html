@@ -639,6 +639,7 @@ function renderSaidaGrid(){
     +'</div>';
   }).join('');
 }
+function doSaida(){
   var id=document.getElementById('out-sel').value,qtd=parseFloat(document.getElementById('out-qtd').value);
   if(!id||!qtd){toast('⚠️ Selecione produto e quantidade!','warn');return;}
   var p=prods.find(function(x){return x.id===id;});if(!p)return;
