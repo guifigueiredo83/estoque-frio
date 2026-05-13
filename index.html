@@ -11,8 +11,6 @@
 :root{--frost:#7ec8e3;--deep:#0a2540;--deep-mid:#133a5e;--accent:#00c4ff;--danger:#ff4757;--warn:#ffa502;--ok:#2ed573;--surface:rgba(255,255,255,0.06);--border:rgba(126,200,227,0.2);--text:#e8f4f8;--text-dim:rgba(232,244,248,0.55);}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Syne',sans-serif;background:var(--deep);color:var(--text);min-height:100vh;background-image:radial-gradient(ellipse 80% 60% at 20% -10%,rgba(0,196,255,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 110%,rgba(0,100,180,0.15) 0%,transparent 60%);}
-
-/* LOGIN */
 #login-screen{position:fixed;inset:0;background:var(--deep);display:flex;align-items:center;justify-content:center;z-index:9999;background-image:radial-gradient(ellipse 80% 60% at 20% -10%,rgba(0,196,255,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 80% 110%,rgba(0,100,180,0.15) 0%,transparent 60%);}
 .login-box{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:20px;padding:40px 36px;width:100%;max-width:380px;backdrop-filter:blur(12px);}
 .login-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px;justify-content:center;}
@@ -28,21 +26,15 @@ body{font-family:'Syne',sans-serif;background:var(--deep);color:var(--text);min-
 .login-btn:disabled{opacity:.5;cursor:not-allowed;}
 .login-error{color:var(--danger);font-size:12px;font-family:'DM Mono',monospace;margin-top:10px;text-align:center;min-height:18px;}
 .login-hint{font-size:11px;color:var(--text-dim);font-family:'DM Mono',monospace;text-align:center;margin-top:20px;line-height:1.6;}
-
-/* LOADING */
 #loading{position:fixed;inset:0;background:var(--deep);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9998;gap:16px;}
 .spin{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 #loading p{font-family:'DM Mono',monospace;font-size:13px;color:var(--text-dim);}
-
-/* SYNC */
 #sync-dot{position:fixed;bottom:16px;right:16px;display:flex;align-items:center;gap:7px;padding:6px 13px;border-radius:20px;background:rgba(10,37,64,0.9);border:1px solid var(--border);font-family:'DM Mono',monospace;font-size:11px;color:var(--text-dim);z-index:200;backdrop-filter:blur(8px);}
 #sync-dot .dot{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite;}
 #sync-dot.syncing .dot{background:var(--warn);animation:none;}
 #sync-dot.error .dot{background:var(--danger);animation:none;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* APP */
 #app{display:none;}
 header{padding:20px 28px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;background:rgba(10,37,64,0.88);}
 .logo{display:flex;align-items:center;gap:10px;}
@@ -81,7 +73,6 @@ select option{background:var(--deep-mid);}
 .btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px);}
 .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 .btn-danger{background:rgba(255,71,87,0.15);color:var(--danger);border:1px solid rgba(255,71,87,0.3);}
-.btn-warn{background:rgba(255,165,2,0.12);color:var(--warn);border:1px solid rgba(255,165,2,0.3);}
 .btn-sm{padding:5px 10px;font-size:11px;}
 .toolbar{display:flex;gap:10px;margin-bottom:12px;align-items:center;flex-wrap:wrap;}
 .toolbar input{flex:1;min-width:180px;}
@@ -108,6 +99,15 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
 .qty-btn:hover{border-color:var(--accent);color:var(--accent);}
 .qty-val{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;min-width:28px;text-align:center;}
 .qty-low{color:var(--warn)!important;}.qty-zero{color:var(--danger)!important;}
+tr.prod-group{cursor:pointer;}
+tr.prod-group td{border-bottom:none!important;}
+.expand-icon{display:inline-block;transition:transform .2s;font-style:normal;font-size:11px;margin-right:6px;color:var(--text-dim);}
+tr.prod-group.open .expand-icon{transform:rotate(90deg);}
+tr.lote-row{display:none;background:rgba(0,0,0,0.15);}
+tr.lote-row.visible{display:table-row;}
+tr.lote-row td{padding:7px 13px 7px 36px!important;font-size:11px;border-bottom:1px solid rgba(126,200,227,0.05)!important;}
+.lote-val{font-family:'DM Mono',monospace;font-size:11px;}
+.lote-qty{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;}
 .mov-list{display:flex;flex-direction:column;gap:7px;}
 .mov-item{display:flex;align-items:center;gap:11px;padding:10px 13px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
 .mov-type{width:56px;text-align:center;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:700;text-transform:uppercase;font-family:'DM Mono',monospace;flex-shrink:0;}
@@ -130,45 +130,25 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
 .info-tag{font-size:11px;padding:3px 10px;border-radius:12px;border:1px solid var(--border);color:var(--text-dim);font-family:'DM Mono',monospace;}
 .empty-state{text-align:center;padding:38px 20px;color:var(--text-dim);font-family:'DM Mono',monospace;font-size:13px;}
 .empty-state div{font-size:28px;margin-bottom:9px;}
-
-/* TROCAR SENHA */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .modal-box{background:#0d2d4a;border:1px solid var(--border);border-radius:16px;padding:28px;width:100%;max-width:340px;}
 .modal-box h3{font-size:14px;font-weight:700;margin-bottom:18px;color:var(--frost);}
-
 @media(max-width:600px){header{padding:13px 15px;}.header-stats{display:none;}main{padding:13px 15px;}.form-grid{grid-template-columns:1fr 1fr;}th,td{padding:8px 9px;font-size:11px;}.login-box{margin:16px;padding:28px 20px;}}
 </style>
 </head>
 <body>
-
-<!-- TELA DE LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">
-      <div class="login-logo-icon">🧊</div>
-      <div><h1>Estoque Frio</h1><span>CONTROLE DE CONGELADOS</span></div>
-    </div>
-    <div class="login-field">
-      <label>Usuário</label>
-      <input id="l-user" type="text" placeholder="Seu nome" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()">
-    </div>
-    <div class="login-field">
-      <label>Senha</label>
-      <input id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-    </div>
+    <div class="login-logo"><div class="login-logo-icon">🧊</div><div><h1>Estoque Frio</h1><span>CONTROLE DE CONGELADOS</span></div></div>
+    <div class="login-field"><label>Usuário</label><input id="l-user" type="text" placeholder="Seu nome" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('l-pass').focus()"></div>
+    <div class="login-field"><label>Senha</label><input id="l-pass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="login-btn" id="login-btn" onclick="doLogin()">Entrar</button>
     <div class="login-error" id="login-error"></div>
     <div class="login-hint">Primeiro acesso? Use seu nome como senha.<br>Ex: usuário <b>flavia</b> → senha <b>flavia</b></div>
   </div>
 </div>
-
-<!-- LOADING -->
 <div id="loading" style="display:none"><div class="spin"></div><p>Conectando...</p></div>
-
-<!-- SYNC -->
 <div id="sync-dot" style="display:none"><span class="dot"></span><span id="sync-txt">Tempo real</span></div>
-
-<!-- MODAL TROCAR SENHA -->
 <div class="modal-overlay" id="modal-senha" style="display:none">
   <div class="modal-box">
     <h3>🔐 Trocar senha</h3>
@@ -182,14 +162,9 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
     </div>
   </div>
 </div>
-
-<!-- APP PRINCIPAL -->
 <div id="app">
 <header>
-  <div class="logo">
-    <div class="logo-icon">🧊</div>
-    <div><h1>Estoque Frio</h1><span>TEMPO REAL</span></div>
-  </div>
+  <div class="logo"><div class="logo-icon">🧊</div><div><h1>Estoque Frio</h1><span>TEMPO REAL</span></div></div>
   <div class="header-right">
     <div class="header-stats">
       <div class="stat-chip"><strong id="st-total">0</strong>produtos</div>
@@ -205,7 +180,6 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
     </div>
   </div>
 </header>
-
 <main>
   <div class="alerts" id="alerts-box"></div>
   <div class="tabs">
@@ -215,8 +189,6 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
     <button class="tab" onclick="goTab('historico',this)">📋 Histórico</button>
     <button class="tab" onclick="goTab('minimos',this)">📊 Mínimos</button>
   </div>
-
-  <!-- ESTOQUE -->
   <div id="tab-estoque" class="tab-content active">
     <div class="toolbar">
       <input id="busca" type="text" placeholder="🔍  Buscar produto..." oninput="renderEstoque()">
@@ -229,12 +201,10 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
       </div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Produto</th><th>Categoria</th><th>Quantidade</th><th>Un.</th><th>Mín.</th><th>Validade</th><th>Status</th><th></th></tr></thead>
+      <thead><tr><th>Produto</th><th>Categoria</th><th>Total</th><th>Un.</th><th>Mín.</th><th>Validades</th><th>Status</th><th></th></tr></thead>
       <tbody id="tbl-estoque"><tr><td colspan="8"><div class="empty-state"><div>🧊</div>Carregando...</div></td></tr></tbody>
     </table></div>
   </div>
-
-  <!-- ENTRADA -->
   <div id="tab-entrada" class="tab-content">
     <div class="form-card"><h2>Registrar Entrada de Produto</h2>
       <div class="form-grid">
@@ -249,12 +219,10 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
       <button class="btn btn-primary" id="btn-entrada" onclick="doEntrada()">+ Confirmar Entrada</button>
     </div>
   </div>
-
-  <!-- SAÍDA -->
   <div id="tab-saida" class="tab-content">
     <div class="form-card"><h2>Registrar Saída</h2>
       <div class="form-grid">
-        <div class="field" style="grid-column:span 2"><label>Produto *</label><select id="out-sel"><option value="">— Selecione —</option></select></div>
+        <div class="field" style="grid-column:span 2"><label>Produto / Lote *</label><select id="out-sel"><option value="">— Selecione —</option></select></div>
         <div class="field"><label>Quantidade *</label><input id="out-qtd" type="number" min="0.1" step="0.1" placeholder="Qtd a retirar"></div>
         <div class="field"><label>Motivo</label><select id="out-mot"><option>Uso interno</option><option>Venda</option><option>Descarte</option><option>Transferência</option><option>Outro</option></select></div>
       </div>
@@ -263,16 +231,12 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
     <p class="section-label">Saída rápida — toque no produto:</p>
     <div class="saida-grid" id="saida-grid"></div>
   </div>
-
-  <!-- HISTÓRICO -->
   <div id="tab-historico" class="tab-content">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:13px">
       <span class="section-label" id="mov-count" style="margin:0">0 movimentações</span>
     </div>
     <div class="mov-list" id="mov-list"><div class="empty-state"><div>📋</div>Carregando...</div></div>
   </div>
-
-  <!-- MÍNIMOS -->
   <div id="tab-minimos" class="tab-content">
     <div class="info-strip">
       <span class="info-tag">📅 Base: 01/01/26 – 22/04/26 · 107 dias</span>
@@ -285,26 +249,16 @@ td.name{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;}
     </table></div>
   </div>
 </main>
-</div><!-- /app -->
-
+</div>
 <script>
-// ── USUÁRIOS (login: nome minúsculo, senha inicial: nome minúsculo) ────────────
-// Senhas ficam salvas no Firestore — aqui só os logins válidos
-var USUARIOS_VALIDOS = ['guilherme','flavia','erik','elivelton','matheus'];
-
-// ── CATÁLOGO ──────────────────────────────────────────────────────────────────
+var USUARIOS_VALIDOS=['flavia','erik','elivelton','matheus'];
 var CAT=[{n:"BISNAGUINHA B2B",c:"Pães B2B",m:24.19,mn:95},{n:"BISNAGUINHA",c:"Pães",m:14.88,mn:59},{n:"FILÃO D'AGUA FATIADO",c:"Pães B2B",m:11.31,mn:45},{n:"PÃO DE QUEIJO",c:"Pães",m:11.07,mn:44},{n:"COOKIE CHOCOLATE BELGA",c:"Biscoitos",m:9.41,mn:37},{n:"PÃO ITALIANO",c:"Pães",m:8.18,mn:32},{n:"HB TRADICIONAL PCT 12 UN",c:"Pães B2B",m:7.51,mn:30},{n:"FILÃO D'AGUA",c:"Pães",m:7.35,mn:29},{n:"BISNAGUINHA INTEGRAL B2B",c:"Pães B2B",m:7.07,mn:28},{n:"BISNAGUINHA INTEGRAL",c:"Pães",m:6.89,mn:27},{n:"RUSTICO",c:"Pães",m:6.53,mn:26},{n:"INTEGRAL 100% FORMA",c:"Pães",m:6.0,mn:24},{n:"HB BRIOCHE 10 PCT 4 UN",c:"Pães B2B",m:5.77,mn:23},{n:"PANINI",c:"Pães",m:5.45,mn:22},{n:"PAO HAMBURGUER BRIOCHE PCT 4 UN",c:"Pães",m:5.31,mn:21},{n:"COOKIE DUPLO CHOCOLATE",c:"Biscoitos",m:5.1,mn:20},{n:"MUFFIN CHOCOLATE",c:"Biscoitos",m:4.92,mn:20},{n:"PÃO ITALIANO B2B",c:"Pães B2B",m:4.82,mn:19},{n:"HB BRIOCHE 10 PCT 12 UN",c:"Pães B2B",m:4.44,mn:18},{n:"RUSTICO B2B",c:"Pães B2B",m:4.23,mn:17},{n:"ROLL CALABRESA",c:"Pães",m:4.14,mn:17},{n:"INTEGRAL FORMA",c:"Pães",m:3.73,mn:15},{n:"BAGUETE CROC",c:"Pães B2B",m:3.6,mn:15},{n:"PÃO DE AVEIA E LINHAÇA",c:"Pães",m:3.16,mn:13},{n:"MUFFIN LARANJA",c:"Biscoitos",m:2.99,mn:12},{n:"MULTIGRÃOS FORMA",c:"Pães",m:2.93,mn:12},{n:"HB BRIOCHE 6",c:"Pães B2B",m:2.64,mn:11},{n:"BAGUETTE TRADIÇÃO",c:"Pães",m:2.57,mn:11},{n:"CROISSANT B2B",c:"Pães B2B",m:2.53,mn:10},{n:"HB BRIOCHE 10 CAIXA 48 UN",c:"Pães B2B",m:2.48,mn:10},{n:"MASSA PIZZA PRÉ-ASSADA",c:"Pães",m:2.26,mn:9},{n:"CIABATTA",c:"Pães",m:2.16,mn:9},{n:"HB BRIOCHE 8",c:"Pães B2B",m:2.15,mn:9},{n:"PÃO OCTANO",c:"Pães",m:2.15,mn:9},{n:"PÃO DE AZEITONAS",c:"Pães",m:1.76,mn:7},{n:"BOSTOCK",c:"Pães",m:1.64,mn:7},{n:"CINNAMON ROLL",c:"Pães",m:1.64,mn:7},{n:"BRIOCHE NANTERRE",c:"Pães",m:1.41,mn:6},{n:"SONHO",c:"Biscoitos",m:1.38,mn:6},{n:"INTEGRAL 100% FORMA B2B",c:"Pães B2B",m:1.21,mn:5},{n:"MULTIGRÃOS FORMA B2B",c:"Pães",m:1.07,mn:5},{n:"PÃO DE PASSAS E NOZES",c:"Pães",m:0.95,mn:4},{n:"HB TRADICIONAL 60G CAIXA 48 UN",c:"Pães B2B",m:0.89,mn:4},{n:"CROISSANT",c:"Pães",m:0.88,mn:4},{n:"HB CROC",c:"Pães B2B",m:0.83,mn:4},{n:"HB TRADICIONAL 120G PCT 8 UN",c:"Pães B2B",m:0.82,mn:4},{n:"HB CROC PCT 12 UN",c:"Pães B2B",m:0.81,mn:4},{n:"PÃO DE QUEIJO CONGELADO PCT 10UN B2B",c:"Pães B2B",m:0.7,mn:3},{n:"PÃO DE AVEIA E LINHAÇA B2B",c:"Pães B2B",m:0.67,mn:3},{n:"CIABATTA B2B",c:"Pães B2B",m:0.65,mn:3},{n:"BAGUETTE TRADIÇÃO B2B",c:"Pães B2B",m:0.64,mn:3},{n:"COOKIE OCTANO",c:"Pães B2B",m:0.64,mn:3},{n:"PAO PETROPOLIS",c:"Pães",m:0.61,mn:3},{n:"MUFFIN CHOCOLATE B2B",c:"Pães B2B",m:0.6,mn:3},{n:"HOTDOG PCT 4UN",c:"Pães",m:0.57,mn:3},{n:"PÃO HAMBURGUER TRADICIONAL PCT 4 UN",c:"Pães",m:0.54,mn:3},{n:"PÃO DE QUEIJO CONGELADO PCT 10UN",c:"Pães",m:0.51,mn:2},{n:"HB BRIOCHE 8 PCT 24 UN",c:"Pães B2B",m:0.49,mn:2},{n:"HOTDOG PCT 4UN B2B",c:"Pães B2B",m:0.47,mn:2},{n:"MUFFIN LARANJA B2B",c:"Pães B2B",m:0.47,mn:2},{n:"NY ROLL B2B",c:"Pães B2B",m:0.43,mn:2},{n:"PIZZA ROMANA",c:"Pães B2B",m:0.43,mn:2},{n:"HOTDOG PAO",c:"Pães B2B",m:0.34,mn:2},{n:"PÃO ITALIANO 1KG B2B",c:"Pães B2B",m:0.33,mn:2},{n:"COOKIE CHOCOLATE BELGA B2B",c:"Pães B2B",m:0.33,mn:2},{n:"COOKIE CHOCOLATE BELGA PCT 10 UN B2B",c:"Pães B2B",m:0.23,mn:1},{n:"COOKIE DUPLO CHOCOLATE PCT 10 UN B2B",c:"Pães B2B",m:0.22,mn:1},{n:"BAGUETTE GERGELIM",c:"Pães",m:0.22,mn:1},{n:"CESTA FOLHADA CHOCOLATE",c:"Biscoitos",m:0.21,mn:1},{n:"INTEGRAL FORMA B2B",c:"Pães B2B",m:0.2,mn:1},{n:"PÃO DE AZEITONAS B2B",c:"Pães B2B",m:0.18,mn:1},{n:"HB BRIOCHE GERGELIM PCT 12 UN",c:"Pães B2B",m:0.16,mn:1},{n:"PAO PETROPOLIS B2B",c:"Pães B2B",m:0.11,mn:1},{n:"CESTA FOLHADA MORANGO",c:"Biscoitos",m:0.11,mn:1},{n:"CESTA FOLHADA ROMEU JULIETA",c:"Biscoitos",m:0.07,mn:1},{n:"HB BRIOCHE 6 PCT 35 UN",c:"Pães B2B",m:0.07,mn:1},{n:"COOKIE DUPLO CHOCOLATE B2B",c:"Pães B2B",m:0.06,mn:1},{n:"COOKIE CHOCOLATE BELGA PCT 6UN",c:"Biscoitos",m:0.01,mn:1}];
 
-// ── FIREBASE ──────────────────────────────────────────────────────────────────
 var firebaseConfig={apiKey:"AIzaSyBQJDNLzwO5v9DfbDjVfAH1gKhaA9jjLZQ",authDomain:"controle-de-estoque-congelado.firebaseapp.com",projectId:"controle-de-estoque-congelado",storageBucket:"controle-de-estoque-congelado.firebasestorage.app",messagingSenderId:"796926926929",appId:"1:796926926929:web:e29c720c94492d0d54d870"};
 firebase.initializeApp(firebaseConfig);
 var db=firebase.firestore();
+var prods=[],movs=[],filt='todos',usuarioLogado=null;
 
-// ── ESTADO ────────────────────────────────────────────────────────────────────
-var prods=[],movs=[],filt='todos';
-var usuarioLogado=null;
-
-// ── UTILS ─────────────────────────────────────────────────────────────────────
 function hoje(){return new Date().toISOString().split('T')[0];}
 function dpv(v){return Math.floor((new Date(v+'T00:00:00')-new Date(hoje()+'T00:00:00'))/86400000);}
 function fmtD(s){var p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
@@ -315,7 +269,27 @@ function setSync(state,txt){var el=document.getElementById('sync-dot');el.classN
 function toast(msg,tp){tp=tp||'ok';var e=document.createElement('div');e.className='alert alert-'+tp;e.textContent=msg;document.getElementById('alerts-box').appendChild(e);setTimeout(function(){e.remove();},3200);}
 function hashSimples(str){var h=0;for(var i=0;i<str.length;i++){h=((h<<5)-h)+str.charCodeAt(i);h=h&h;}return h.toString();}
 
-// ── LOGIN ─────────────────────────────────────────────────────────────────────
+function groupByName(lista){
+  var grupos={};
+  lista.forEach(function(p){
+    if(!grupos[p.n])grupos[p.n]={n:p.n,c:p.c,u:p.u,lotes:[],mn:getMin(p)};
+    grupos[p.n].lotes.push(p);
+  });
+  Object.keys(grupos).forEach(function(k){
+    grupos[k].lotes.sort(function(a,b){return dpv(a.v)-dpv(b.v);});
+  });
+  return Object.values(grupos);
+}
+function grupoTotal(g){return g.lotes.reduce(function(s,l){return s+l.q;},0);}
+function grupoStatus(g){
+  var lotes=g.lotes;
+  if(lotes.some(function(l){return dpv(l.v)<0;}))return{t:'❌ Vencido',c:'badge-expired',k:'vencido'};
+  if(lotes.some(function(l){return dpv(l.v)===0;}))return{t:'⚠️ Hoje',c:'badge-danger',k:'vencendo'};
+  if(lotes.some(function(l){return dpv(l.v)<=7;})){var minD=Math.min.apply(null,lotes.map(function(l){return dpv(l.v);}));return{t:'⚠️ '+minD+'d',c:'badge-warn',k:'vencendo'};}
+  var minD=Math.min.apply(null,lotes.map(function(l){return dpv(l.v);}));
+  return{t:'✅ '+minD+'d',c:'badge-ok',k:'ok'};
+}
+
 function doLogin(){
   var user=document.getElementById('l-user').value.trim().toLowerCase();
   var pass=document.getElementById('l-pass').value;
@@ -323,30 +297,14 @@ function doLogin(){
   errEl.textContent='';
   if(!user||!pass){errEl.textContent='Preencha usuário e senha.';return;}
   if(USUARIOS_VALIDOS.indexOf(user)===-1){errEl.textContent='Usuário não encontrado.';return;}
-  var btn=document.getElementById('login-btn');
-  btn.disabled=true;btn.textContent='Entrando...';
-  // Busca senha no Firestore
+  var btn=document.getElementById('login-btn');btn.disabled=true;btn.textContent='Entrando...';
   db.collection('usuarios').doc(user).get().then(function(doc){
     var senhaHash;
-    if(!doc.exists){
-      // Primeiro acesso: cria com senha = nome
-      senhaHash=hashSimples(user);
-      db.collection('usuarios').doc(user).set({senhaHash:senhaHash,nome:user,criadoEm:firebase.firestore.FieldValue.serverTimestamp()});
-    } else {
-      senhaHash=doc.data().senhaHash;
-    }
-    if(hashSimples(pass)===senhaHash){
-      usuarioLogado=user;
-      sessionStorage.setItem('ef_user',user);
-      abrirApp();
-    } else {
-      errEl.textContent='Senha incorreta.';
-      btn.disabled=false;btn.textContent='Entrar';
-    }
-  }).catch(function(e){
-    errEl.textContent='Erro de conexão: '+e.message;
-    btn.disabled=false;btn.textContent='Entrar';
-  });
+    if(!doc.exists){senhaHash=hashSimples(user);db.collection('usuarios').doc(user).set({senhaHash:senhaHash,nome:user,criadoEm:firebase.firestore.FieldValue.serverTimestamp()});}
+    else{senhaHash=doc.data().senhaHash;}
+    if(hashSimples(pass)===senhaHash){usuarioLogado=user;sessionStorage.setItem('ef_user',user);abrirApp();}
+    else{errEl.textContent='Senha incorreta.';btn.disabled=false;btn.textContent='Entrar';}
+  }).catch(function(e){errEl.textContent='Erro: '+e.message;btn.disabled=false;btn.textContent='Entrar';});
 }
 
 function abrirApp(){
@@ -354,55 +312,35 @@ function abrirApp(){
   document.getElementById('loading').style.display='flex';
   document.getElementById('sync-dot').style.display='flex';
   document.getElementById('app').style.display='block';
-  // Atualiza header com nome do usuário
   var nome=usuarioLogado.charAt(0).toUpperCase()+usuarioLogado.slice(1);
   document.getElementById('user-name-display').textContent=nome;
   document.getElementById('user-avatar').textContent=nome.charAt(0).toUpperCase();
   document.getElementById('in-val').min=hoje();
-  fillInSel();
-  startListeners();
+  fillInSel();startListeners();
 }
 
-function doLogout(){
-  if(!confirm('Deseja sair?'))return;
-  usuarioLogado=null;
-  sessionStorage.removeItem('ef_user');
-  location.reload();
-}
-
-// Troca de senha
+function doLogout(){if(!confirm('Deseja sair?'))return;usuarioLogado=null;sessionStorage.removeItem('ef_user');location.reload();}
 function abrirModalSenha(){document.getElementById('modal-senha').style.display='flex';}
 function fecharModalSenha(){document.getElementById('modal-senha').style.display='none';['s-atual','s-nova','s-conf'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('senha-error').textContent='';}
 function salvarSenha(){
-  var atual=document.getElementById('s-atual').value;
-  var nova=document.getElementById('s-nova').value;
-  var conf=document.getElementById('s-conf').value;
+  var atual=document.getElementById('s-atual').value,nova=document.getElementById('s-nova').value,conf=document.getElementById('s-conf').value;
   var errEl=document.getElementById('senha-error');
   if(!atual||!nova||!conf){errEl.textContent='Preencha todos os campos.';return;}
-  if(nova!==conf){errEl.textContent='Nova senha e confirmação não coincidem.';return;}
-  if(nova.length<3){errEl.textContent='Senha deve ter pelo menos 3 caracteres.';return;}
+  if(nova!==conf){errEl.textContent='Senhas não coincidem.';return;}
+  if(nova.length<3){errEl.textContent='Mínimo 3 caracteres.';return;}
   db.collection('usuarios').doc(usuarioLogado).get().then(function(doc){
-    var senhaAtual=doc.exists?doc.data().senhaHash:hashSimples(usuarioLogado);
-    if(hashSimples(atual)!==senhaAtual){errEl.textContent='Senha atual incorreta.';return;}
-    db.collection('usuarios').doc(usuarioLogado).update({senhaHash:hashSimples(nova)}).then(function(){
-      fecharModalSenha();
-      toast('✅ Senha alterada com sucesso!','ok');
-    }).catch(function(e){errEl.textContent='Erro: '+e.message;});
+    var sa=doc.exists?doc.data().senhaHash:hashSimples(usuarioLogado);
+    if(hashSimples(atual)!==sa){errEl.textContent='Senha atual incorreta.';return;}
+    db.collection('usuarios').doc(usuarioLogado).update({senhaHash:hashSimples(nova)}).then(function(){fecharModalSenha();toast('✅ Senha alterada!','ok');}).catch(function(e){errEl.textContent='Erro: '+e.message;});
   });
 }
 
-// ── LISTENERS FIRESTORE ───────────────────────────────────────────────────────
 function startListeners(){
   db.collection('produtos').onSnapshot(function(snap){
     prods=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
     refresh();fillOutSel();renderSaidaGrid();
-    document.getElementById('loading').style.display='none';
-    setSync('','Tempo real');
-  },function(err){
-    document.getElementById('loading').style.display='none';
-    setSync('error','Erro');
-    toast('❌ Firebase: '+err.message,'danger');
-  });
+    document.getElementById('loading').style.display='none';setSync('','Tempo real');
+  },function(err){document.getElementById('loading').style.display='none';setSync('error','Erro');toast('❌ Firebase: '+err.message,'danger');});
   db.collection('movimentacoes').orderBy('ts','desc').limit(100).onSnapshot(function(snap){
     movs=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
     document.getElementById('mov-count').textContent=movs.length+' movimentações';
@@ -410,7 +348,6 @@ function startListeners(){
   });
 }
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
 function goTab(id,btn){
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
@@ -422,56 +359,104 @@ function goTab(id,btn){
   if(id==='entrada')fillInSel();
 }
 function setFilt(k,btn){filt=k;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderEstoque();}
-
-// ── STATS + ALERTAS ───────────────────────────────────────────────────────────
+</script>
+<script>
 function renderStats(){
-  document.getElementById('st-total').textContent=prods.length;
-  document.getElementById('st-low').textContent=prods.filter(function(p){return p.q<getMin(p);}).length;
-  document.getElementById('st-venc').textContent=prods.filter(function(p){var d=dpv(p.v);return d>=0&&d<=7;}).length;
-  document.getElementById('st-vencido').textContent=prods.filter(function(p){return dpv(p.v)<0;}).length;
+  var grupos=groupByName(prods);
+  document.getElementById('st-total').textContent=grupos.length;
+  document.getElementById('st-low').textContent=grupos.filter(function(g){return grupoTotal(g)<g.mn;}).length;
+  document.getElementById('st-venc').textContent=grupos.filter(function(g){return grupoStatus(g).k==='vencendo';}).length;
+  document.getElementById('st-vencido').textContent=grupos.filter(function(g){return grupoStatus(g).k==='vencido';}).length;
 }
+
 function renderAlertas(){
   document.querySelectorAll('.alfix').forEach(function(e){e.remove();});
   var box=document.getElementById('alerts-box');
   function add(msg,tp){var e=document.createElement('div');e.className='alert alert-'+tp+' alfix';e.innerHTML=msg;box.insertBefore(e,box.firstChild);}
-  var vd=prods.filter(function(p){return dpv(p.v)<0;});
-  var vn=prods.filter(function(p){var d=dpv(p.v);return d>=0&&d<=3;});
-  var ze=prods.filter(function(p){return p.q<=0;});
-  var lw=prods.filter(function(p){return p.q>0&&p.q<getMin(p);});
-  if(vd.length)add('❌ <b>Vencidos ('+vd.length+'):</b> '+vd.map(function(p){return p.n;}).join(', '),'danger');
-  if(vn.length)add('⚠️ <b>Vencem em ≤3 dias:</b> '+vn.map(function(p){return p.n;}).join(', '),'warn');
-  if(ze.length)add('🚨 <b>Zerados:</b> '+ze.map(function(p){return p.n;}).join(', '),'danger');
-  if(lw.length)add('⚠️ <b>Abaixo do mínimo:</b> '+lw.map(function(p){return p.n+' ('+p.q.toFixed(2)+'/'+getMin(p)+')';}).join(' | '),'warn');
+  var grupos=groupByName(prods);
+  var vd=grupos.filter(function(g){return grupoStatus(g).k==='vencido';});
+  var vn=grupos.filter(function(g){return g.lotes.some(function(l){var d=dpv(l.v);return d>=0&&d<=3;});});
+  var ze=grupos.filter(function(g){return grupoTotal(g)<=0;});
+  var lw=grupos.filter(function(g){var t=grupoTotal(g);return t>0&&t<g.mn;});
+  if(vd.length)add('❌ <b>Vencidos ('+vd.length+'):</b> '+vd.map(function(g){return g.n;}).join(', '),'danger');
+  if(vn.length)add('⚠️ <b>Vencem em ≤3 dias:</b> '+vn.map(function(g){return g.n;}).join(', '),'warn');
+  if(ze.length)add('🚨 <b>Zerados:</b> '+ze.map(function(g){return g.n;}).join(', '),'danger');
+  if(lw.length)add('⚠️ <b>Abaixo do mínimo:</b> '+lw.map(function(g){return g.n+' ('+grupoTotal(g).toFixed(2)+'/'+g.mn+')';}).join(' | '),'warn');
 }
 
-// ── ESTOQUE ───────────────────────────────────────────────────────────────────
 function renderEstoque(){
   var q=(document.getElementById('busca').value||'').toLowerCase();
   var ls=prods.slice();
   if(q)ls=ls.filter(function(p){return p.n.toLowerCase().indexOf(q)>=0||p.c.toLowerCase().indexOf(q)>=0;});
-  if(filt==='baixo')ls=ls.filter(function(p){return p.q<getMin(p);});
-  else if(filt==='ok')ls=ls.filter(function(p){return p.q>=getMin(p)&&stVal(p.v).k==='ok';});
-  else if(filt==='vencendo')ls=ls.filter(function(p){return stVal(p.v).k==='vencendo';});
-  else if(filt==='vencido')ls=ls.filter(function(p){return stVal(p.v).k==='vencido';});
-  ls.sort(function(a,b){return dpv(a.v)-dpv(b.v);});
+  var grupos=groupByName(ls);
+  if(filt==='baixo')grupos=grupos.filter(function(g){return grupoTotal(g)<g.mn;});
+  else if(filt==='ok')grupos=grupos.filter(function(g){return grupoTotal(g)>=g.mn&&grupoStatus(g).k==='ok';});
+  else if(filt==='vencendo')grupos=grupos.filter(function(g){return grupoStatus(g).k==='vencendo';});
+  else if(filt==='vencido')grupos=grupos.filter(function(g){return grupoStatus(g).k==='vencido';});
+  grupos.sort(function(a,b){
+    var da=Math.min.apply(null,a.lotes.map(function(l){return dpv(l.v);}));
+    var db_=Math.min.apply(null,b.lotes.map(function(l){return dpv(l.v);}));
+    return da-db_;
+  });
   var tb=document.getElementById('tbl-estoque');
-  if(!ls.length){tb.innerHTML='<tr><td colspan="8"><div class="empty-state"><div>🧊</div>Nenhum produto encontrado</div></td></tr>';return;}
-  tb.innerHTML=ls.map(function(p){
-    var st=stVal(p.v),mn=getMin(p),qc=p.q<=0?'qty-zero':p.q<mn?'qty-low':'';
-    return'<tr><td class="name">'+p.n+'</td><td style="font-size:11px">'+p.c+'</td>'
-      +'<td><div class="qty-controls"><button class="qty-btn" onclick="adjQ(\''+p.id+'\',-1)">−</button>'
-      +'<span class="qty-val '+qc+'">'+parseFloat(p.q.toFixed(2))+'</span>'
-      +'<button class="qty-btn" onclick="adjQ(\''+p.id+'\',1)">+</button></div></td>'
-      +'<td>'+p.u+'</td><td style="font-size:11px;color:var(--text-dim)">≥'+mn+'</td>'
-      +'<td style="font-size:11px">'+fmtD(p.v)+'</td>'
-      +'<td><span class="badge '+st.c+'">'+st.t+'</span></td>'
-      +'<td><button class="btn btn-danger btn-sm" onclick="delP(\''+p.id+'\')">🗑</button></td></tr>';
-  }).join('');
+  if(!grupos.length){tb.innerHTML='<tr><td colspan="8"><div class="empty-state"><div>🧊</div>Nenhum produto encontrado</div></td></tr>';return;}
+  var html='';
+  grupos.forEach(function(g,gi){
+    var total=grupoTotal(g),mn=g.mn,st=grupoStatus(g);
+    var qc=total<=0?'qty-zero':total<mn?'qty-low':'';
+    var temVarios=g.lotes.length>1;
+    var grpId='grp-'+gi;
+    var validades=g.lotes.map(function(l){
+      var d=dpv(l.v),cor=d<0?'var(--danger)':d<=7?'var(--warn)':'';
+      return '<span style="'+(cor?'color:'+cor:'')+'">'+(g.lotes.length>1?'[L'+(g.lotes.indexOf(l)+1)+'] ':'')+fmtD(l.v)+'</span>';
+    }).join(' &nbsp;');
+    html+='<tr class="prod-group" id="'+grpId+'" onclick="toggleGrupo(\''+grpId+'\')">';
+    html+='<td class="name"><i class="expand-icon">'+(temVarios?'▶':'·')+'</i>'+g.n+'</td>';
+    html+='<td style="font-size:11px">'+g.c+'</td>';
+    html+='<td><span class="qty-val '+qc+'">'+parseFloat(total.toFixed(2))+'</span>'+(temVarios?'<span style="font-size:10px;color:var(--text-dim);margin-left:6px">'+g.lotes.length+' lotes</span>':'')+'</td>';
+    html+='<td>'+g.u+'</td>';
+    html+='<td style="font-size:11px;color:var(--text-dim)">≥'+mn+'</td>';
+    html+='<td style="font-size:11px">'+validades+'</td>';
+    html+='<td><span class="badge '+st.c+'">'+st.t+'</span></td>';
+    html+='<td></td></tr>';
+    g.lotes.forEach(function(lote,li){
+      var stL=stVal(lote.v),qcL=lote.q<=0?'qty-zero':lote.q<mn?'qty-low':'';
+      html+='<tr class="lote-row" data-grp="'+grpId+'">';
+      html+='<td colspan="2" style="color:var(--text-dim)">↳ Lote '+(li+1)+(lote.obs?' · '+lote.obs:'')+'</td>';
+      html+='<td><div class="qty-controls">'
+        +'<button class="qty-btn" onclick="event.stopPropagation();adjQ(\''+lote.id+'\',-1)">−</button>'
+        +'<span class="lote-qty '+qcL+'">'+parseFloat(lote.q.toFixed(2))+'</span>'
+        +'<button class="qty-btn" onclick="event.stopPropagation();adjQ(\''+lote.id+'\',1)">+</button>'
+        +'</div></td>';
+      html+='<td>'+lote.u+'</td><td></td>';
+      html+='<td style="font-size:11px"><span style="'+(dpv(lote.v)<0?'color:var(--danger)':dpv(lote.v)<=7?'color:var(--warn)':'')+'">'+fmtD(lote.v)+'</span></td>';
+      html+='<td><span class="badge '+stL.c+'">'+stL.t+'</span></td>';
+      html+='<td><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();delP(\''+lote.id+'\')">🗑</button></td>';
+      html+='</tr>';
+    });
+  });
+  tb.innerHTML=html;
 }
 
-// ── ENTRADA ───────────────────────────────────────────────────────────────────
-function fillInSel(){var s=document.getElementById('in-sel'),cur=s.value;s.innerHTML='<option value="">— Selecione —</option>';CAT.forEach(function(c){var o=document.createElement('option');o.value=c.n;o.textContent=c.n+' ('+c.c+')';s.appendChild(o);});s.value=cur;}
-function onSelProd(){var n=document.getElementById('in-sel').value;if(!n)return;var c=CAT.find(function(x){return x.n===n;});if(c)document.getElementById('in-cat').value=c.c;document.getElementById('in-nome').value='';}
+function toggleGrupo(grpId){
+  var row=document.getElementById(grpId);
+  var isOpen=row.classList.contains('open');
+  row.classList.toggle('open');
+  document.querySelectorAll('[data-grp="'+grpId+'"]').forEach(function(l){l.classList.toggle('visible',!isOpen);});
+}
+
+function fillInSel(){
+  var s=document.getElementById('in-sel'),cur=s.value;
+  s.innerHTML='<option value="">— Selecione —</option>';
+  CAT.forEach(function(c){var o=document.createElement('option');o.value=c.n;o.textContent=c.n+' ('+c.c+')';s.appendChild(o);});
+  s.value=cur;
+}
+function onSelProd(){
+  var n=document.getElementById('in-sel').value;if(!n)return;
+  var c=CAT.find(function(x){return x.n===n;});
+  if(c)document.getElementById('in-cat').value=c.c;
+  document.getElementById('in-nome').value='';
+}
 function doEntrada(){
   var sel=document.getElementById('in-sel').value,nn=document.getElementById('in-nome').value.trim(),nome=nn||sel;
   var qtd=parseFloat(document.getElementById('in-qtd').value),val=document.getElementById('in-val').value;
@@ -491,14 +476,38 @@ function doEntrada(){
   }).catch(function(e){toast('❌ Erro: '+e.message,'danger');
   }).finally(function(){btn.disabled=false;btn.textContent='+ Confirmar Entrada';setSync('','Tempo real');});
 }
+</script><script>
+function fillOutSel(){
+  var s=document.getElementById('out-sel'),cur=s.value;
+  s.innerHTML='<option value="">— Selecione —</option>';
+  var grupos=groupByName(prods.filter(function(p){return p.q>0;}));
+  grupos.forEach(function(g){
+    if(g.lotes.length===1){
+      var l=g.lotes[0];
+      var o=document.createElement('option');
+      o.value=l.id;
+      o.textContent=l.n+' ('+parseFloat(l.q.toFixed(2))+' '+l.u+' · vence '+fmtD(l.v)+')';
+      s.appendChild(o);
+    } else {
+      var og=document.createElement('optgroup');
+      og.label=g.n+' — TOTAL: '+parseFloat(grupoTotal(g).toFixed(2))+' '+g.u;
+      g.lotes.forEach(function(l,li){
+        var o=document.createElement('option');
+        o.value=l.id;
+        o.textContent='  Lote '+(li+1)+': vence '+fmtD(l.v)+' ('+parseFloat(l.q.toFixed(2))+' '+l.u+')';
+        og.appendChild(o);
+      });
+      s.appendChild(og);
+    }
+  });
+  s.value=cur;
+}
 
-// ── SAÍDA ─────────────────────────────────────────────────────────────────────
-function fillOutSel(){var s=document.getElementById('out-sel'),cur=s.value;s.innerHTML='<option value="">— Selecione —</option>';prods.filter(function(p){return p.q>0;}).forEach(function(p){var o=document.createElement('option');o.value=p.id;o.textContent=p.n+' ('+parseFloat(p.q.toFixed(2))+' '+p.u+')';s.appendChild(o);});s.value=cur;}
 function doSaida(){
   var id=document.getElementById('out-sel').value,qtd=parseFloat(document.getElementById('out-qtd').value);
   if(!id||!qtd){toast('⚠️ Selecione produto e quantidade!','warn');return;}
   var p=prods.find(function(x){return x.id===id;});if(!p)return;
-  if(qtd>p.q){toast('❌ Qtd maior que estoque ('+parseFloat(p.q.toFixed(2))+' '+p.u+')','danger');return;}
+  if(qtd>p.q){toast('❌ Qtd maior que estoque do lote ('+parseFloat(p.q.toFixed(2))+' '+p.u+')','danger');return;}
   var mot=document.getElementById('out-mot').value;
   var btn=document.getElementById('btn-saida');btn.disabled=true;btn.textContent='Salvando...';setSync('syncing','Salvando...');
   db.collection('produtos').doc(p.id).update({q:Math.round((p.q-qtd)*1000)/1000})
@@ -507,23 +516,94 @@ function doSaida(){
   .catch(function(e){toast('❌ Erro: '+e.message,'danger');})
   .finally(function(){btn.disabled=false;btn.textContent='Registrar Saída';setSync('','Tempo real');});
 }
-function saidaRapida(id){fillOutSel();document.getElementById('out-sel').value=id;document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-saida').classList.add('active');document.querySelectorAll('.tab')[2].classList.add('active');setTimeout(function(){document.getElementById('out-qtd').focus();},80);}
-function renderSaidaGrid(){var g=document.getElementById('saida-grid');var at=prods.filter(function(p){return p.q>0;});if(!at.length){g.innerHTML='<p style="color:var(--text-dim);font-size:12px">Sem produtos em estoque</p>';return;}g.innerHTML=at.map(function(p){var mn=getMin(p),lw=p.q<mn;return'<div class="prod-card" onclick="saidaRapida(\''+p.id+'\')">'+'<div class="prod-card-name">'+p.n+'</div>'+'<div class="prod-card-qty"'+(lw?' style="color:var(--warn)"':'')+'>'+parseFloat(p.q.toFixed(2))+'</div>'+'<div class="prod-card-meta">'+p.u+' · mín '+mn+(lw?' ⚠️':'')+'</div></div>';}).join('');}
 
-// ── HISTÓRICO ─────────────────────────────────────────────────────────────────
-function renderHist(){var l=document.getElementById('mov-list');document.getElementById('mov-count').textContent=movs.length+' movimentações';if(!movs.length){l.innerHTML='<div class="empty-state"><div>📋</div>Nenhuma movimentação</div>';return;}l.innerHTML=movs.map(function(m){return'<div class="mov-item"><span class="mov-type mov-'+m.tp+'">'+m.tp+'</span><div class="mov-info"><strong>'+m.n+'</strong><small>'+m.mot+(m.resp?' · '+m.resp:'')+'</small></div><span class="mov-qty '+(m.tp==='entrada'?'pos':'neg')+'">'+(m.tp==='entrada'?'+':'-')+parseFloat(m.q.toFixed(2))+' '+m.u+'</span><span class="mov-time">'+fmtT(m.ts)+'</span></div>';}).join('');}
+function saidaRapida(id){
+  fillOutSel();
+  document.getElementById('out-sel').value=id;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('tab-saida').classList.add('active');
+  document.querySelectorAll('.tab')[2].classList.add('active');
+  setTimeout(function(){document.getElementById('out-qtd').focus();},80);
+}
 
-// ── MÍNIMOS ───────────────────────────────────────────────────────────────────
-function renderMinimos(){document.getElementById('tbl-minimos').innerHTML=CAT.map(function(c){var p=prods.find(function(x){return x.n===c.n;}),qa=p?p.q:0,mn=p?getMin(p):c.mn,ok=qa>=mn;return'<tr><td class="name" style="font-size:12px">'+c.n+'</td><td style="font-size:11px">'+c.c+'</td><td style="font-size:11px">'+c.m.toFixed(2)+'/dia</td><td><input type="number" min="1" value="'+mn+'" style="width:68px;padding:4px 8px;font-size:13px" onchange="setMin(\''+(p?p.id:'')+'\',this.value)"'+(p?'':' disabled')+'></td><td style="font-weight:700;color:'+(qa<=0?'var(--danger)':qa<mn?'var(--warn)':'var(--ok)')+'">'+parseFloat(qa.toFixed(2))+'</td><td><span class="badge '+(ok?'badge-ok':'badge-warn')+'">'+(ok?'✅ OK':'⚠️ Baixo')+'</span></td></tr>';}).join('');}
-function setMin(pid,val){if(!pid)return;setSync('syncing','Salvando...');db.collection('produtos').doc(pid).update({mn:parseInt(val)||1}).then(function(){setSync('','Tempo real');}).catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});}
+function renderSaidaGrid(){
+  var g=document.getElementById('saida-grid');
+  var grupos=groupByName(prods.filter(function(p){return p.q>0;}));
+  if(!grupos.length){g.innerHTML='<p style="color:var(--text-dim);font-size:12px">Sem produtos em estoque</p>';return;}
+  g.innerHTML=grupos.map(function(gr){
+    var total=grupoTotal(gr),mn=gr.mn,lw=total<mn;
+    var loteId=gr.lotes[0].id;
+    return'<div class="prod-card" onclick="saidaRapida(\''+loteId+'\')">'
+      +'<div class="prod-card-name">'+gr.n+'</div>'
+      +'<div class="prod-card-qty"'+(lw?' style="color:var(--warn)"':'')+'>'+parseFloat(total.toFixed(2))+'</div>'
+      +'<div class="prod-card-meta">'+gr.u+' · mín '+mn+(lw?' ⚠️':'')+'</div>'
+      +(gr.lotes.length>1?'<div class="prod-card-meta">'+gr.lotes.length+' lotes</div>':'')
+    +'</div>';
+  }).join('');
+}
 
-// ── AÇÕES ─────────────────────────────────────────────────────────────────────
-function adjQ(id,d){var p=prods.find(function(x){return x.id===id;});if(!p)return;var nq=Math.round((p.q+d)*100)/100;if(nq<0)return;setSync('syncing','Salvando...');db.collection('produtos').doc(id).update({q:nq}).then(function(){return db.collection('movimentacoes').add({tp:d>0?'entrada':'saida',n:p.n,q:Math.abs(d),u:p.u,mot:'Ajuste manual',resp:usuarioLogado,ts:Date.now()});}).then(function(){setSync('','Tempo real');}).catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});}
-function delP(id){var p=prods.find(function(x){return x.id===id;});if(!p||!confirm('Remover "'+p.n+'" do estoque?'))return;setSync('syncing','Removendo...');db.collection('produtos').doc(id).delete().then(function(){toast('🗑 "'+p.n+'" removido','warn');setSync('','Tempo real');}).catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});}
+function renderHist(){
+  var l=document.getElementById('mov-list');
+  document.getElementById('mov-count').textContent=movs.length+' movimentações';
+  if(!movs.length){l.innerHTML='<div class="empty-state"><div>📋</div>Nenhuma movimentação</div>';return;}
+  l.innerHTML=movs.map(function(m){
+    return'<div class="mov-item">'
+      +'<span class="mov-type mov-'+m.tp+'">'+m.tp+'</span>'
+      +'<div class="mov-info"><strong>'+m.n+'</strong><small>'+m.mot+(m.resp?' · '+m.resp:'')+'</small></div>'
+      +'<span class="mov-qty '+(m.tp==='entrada'?'pos':'neg')+'">'+(m.tp==='entrada'?'+':'-')+parseFloat(m.q.toFixed(2))+' '+m.u+'</span>'
+      +'<span class="mov-time">'+fmtT(m.ts)+'</span>'
+    +'</div>';
+  }).join('');
+}
+
+function renderMinimos(){
+  var grupos=groupByName(prods);
+  document.getElementById('tbl-minimos').innerHTML=CAT.map(function(c){
+    var g=grupos.find(function(x){return x.n===c.n;});
+    var qa=g?grupoTotal(g):0,mn=g?g.mn:c.mn,ok=qa>=mn;
+    var pid=g?g.lotes[0].id:'';
+    return'<tr>'
+      +'<td class="name" style="font-size:12px">'+c.n+'</td>'
+      +'<td style="font-size:11px">'+c.c+'</td>'
+      +'<td style="font-size:11px">'+c.m.toFixed(2)+'/dia</td>'
+      +'<td><input type="number" min="1" value="'+mn+'" style="width:68px;padding:4px 8px;font-size:13px" onchange="setMin(\''+c.n+'\',this.value)"'+(g?'':' disabled')+'></td>'
+      +'<td style="font-weight:700;color:'+(qa<=0?'var(--danger)':qa<mn?'var(--warn)':'var(--ok)')+'">'+parseFloat(qa.toFixed(2))+'</td>'
+      +'<td><span class="badge '+(ok?'badge-ok':'badge-warn')+'">'+(ok?'✅ OK':'⚠️ Baixo')+'</span></td>'
+    +'</tr>';
+  }).join('');
+}
+
+function setMin(nome,val){
+  var mn=parseInt(val)||1;
+  var lotesDoProd=prods.filter(function(p){return p.n===nome;});
+  if(!lotesDoProd.length)return;
+  setSync('syncing','Salvando...');
+  var promises=lotesDoProd.map(function(p){return db.collection('produtos').doc(p.id).update({mn:mn});});
+  Promise.all(promises).then(function(){setSync('','Tempo real');}).catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});
+}
+
+function adjQ(id,d){
+  var p=prods.find(function(x){return x.id===id;});if(!p)return;
+  var nq=Math.round((p.q+d)*100)/100;if(nq<0)return;
+  setSync('syncing','Salvando...');
+  db.collection('produtos').doc(id).update({q:nq})
+  .then(function(){return db.collection('movimentacoes').add({tp:d>0?'entrada':'saida',n:p.n,q:Math.abs(d),u:p.u,mot:'Ajuste manual',resp:usuarioLogado,ts:Date.now()});})
+  .then(function(){setSync('','Tempo real');})
+  .catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});
+}
+
+function delP(id){
+  var p=prods.find(function(x){return x.id===id;});
+  if(!p||!confirm('Remover este lote de "'+p.n+'"?'))return;
+  setSync('syncing','Removendo...');
+  db.collection('produtos').doc(id).delete()
+  .then(function(){toast('🗑 Lote removido','warn');setSync('','Tempo real');})
+  .catch(function(e){toast('❌ '+e.message,'danger');setSync('','Tempo real');});
+}
 
 function refresh(){renderEstoque();renderStats();renderAlertas();}
 
-// Verifica se já tem sessão ativa
 var sessaoSalva=sessionStorage.getItem('ef_user');
 if(sessaoSalva&&USUARIOS_VALIDOS.indexOf(sessaoSalva)!==-1){usuarioLogado=sessaoSalva;abrirApp();}
 </script>
