@@ -359,9 +359,8 @@ function goTab(id,btn){
   if(id==='entrada')fillInSel();
 }
 function setFilt(k,btn){filt=k;document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');renderEstoque();}
-</script>
-<script>
-function renderStats(){
+
+  function renderStats(){
   var grupos=groupByName(prods);
   document.getElementById('st-total').textContent=grupos.length;
   document.getElementById('st-low').textContent=grupos.filter(function(g){return grupoTotal(g)<g.mn;}).length;
@@ -476,7 +475,7 @@ function doEntrada(){
   }).catch(function(e){toast('❌ Erro: '+e.message,'danger');
   }).finally(function(){btn.disabled=false;btn.textContent='+ Confirmar Entrada';setSync('','Tempo real');});
 }
-</script><script>
+
 function fillOutSel(){
   var s=document.getElementById('out-sel'),cur=s.value;
   s.innerHTML='<option value="">— Selecione —</option>';
